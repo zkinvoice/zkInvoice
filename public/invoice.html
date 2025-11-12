@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEC Invoice</title>
+    <link rel="stylesheet" href="/invoice-styles.css">
+    <link rel="icon" type="image/png" href="/img/avatar.png">
+</head>
+<body>
+    <div class="container">
+        <div class="invoice-card">
+            <div class="invoice-header">
+                <h1>Payment Invoice</h1>
+                <div id="statusBadge"></div>
+            </div>
+            
+            <div id="loadingSpinner" class="loading-container">
+                <div class="spinner-large"></div>
+                <p style="color: #9f95a1;">Loading invoice...</p>
+            </div>
+
+            <div id="errorMessage" class="error-message hidden"></div>
+
+            <div id="invoiceContent" class="hidden">
+                <div class="payment-info">
+                    <div class="info-section highlight">
+                        <label>Send Amount</label>
+                        <div class="value-large" id="sendAmount">0.00</div>
+                        <span class="currency-badge">ZEC</span>
+                    </div>
+
+                    <div class="info-section highlight" style="margin-top: 20px;">
+                        <label>To Address (ZEC Network)</label>
+                        <div class="address-container">
+                            <div id="qrcode" style="display: flex; justify-content: center; margin-bottom: 15px;"></div>
+                            <input type="text" id="payinAddress" readonly style="color: white !important; background: rgba(255,255,255,0.1) !important;">
+                            <button class="copy-btn" onclick="copyAddress()">
+                                📋 Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="/invoice-script.js"></script>
+</body>
+</html>

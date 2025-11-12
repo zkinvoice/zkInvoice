@@ -2,6 +2,8 @@ const API_URL = window.location.origin;
 let selectedCurrency = null;
 let allCurrencies = [];
 
+let displayedCount = 20;
+const ITEMS_PER_LOAD = 20;
 console.log(API_URL)
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -12,16 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const currencies = await response.json();
             allCurrencies = currencies;
             
-            displayCurrencies(currencies);
+            displayCurrencies(allCurrencies.slice(0, displayedCount));
 
         } catch (error) {
             console.log('Error loading:', error);
         }
     }
 
-    function displayCurrencies(currencies) {
+    function displayCurrencies(currencies, append = false) {
         const selectItems = document.getElementById('selectItems');
-        selectItems.innerHTML = '';
+        
+        if (!append) {
+            selectItems.innerHTML = '';
+            displayedCount = ITEMS_PER_LOAD;
+        }
 
         currencies.forEach(currency => {
             const item = document.createElement('div');
@@ -29,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             item.dataset.value = `${currency.ticker}|${currency.network}`;
 
             item.innerHTML = `
-                <img src="${currency.image}" alt="${currency.name}">
+                <img src="${currency.image}" alt="${currency.name}" loading="lazy">
                 <div class="select-item-text">
                     <span class="select-item-name">${currency.name}</span>
                     <span class="select-item-ticker">${currency.ticker.toUpperCase()}</span>
@@ -47,32 +53,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const searchInput = document.getElementById('chainSearch');
-    
-    searchInput.addEventListener('focus', function() {
-        document.getElementById('selectItems').classList.remove('hidden');
+    const selectItems = document.getElementById('selectItems');
+
+    selectItems.addEventListener('scroll', function() {
+        if (this.scrollTop + this.clientHeight >= this.scrollHeight - 50) {
+            loadMoreItems();
+        }
     });
 
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        
+    function loadMoreItems() {
+        const searchTerm = searchInput.value.toLowerCase();
+        let itemsToShow;
+
         if (searchTerm === '') {
-            displayCurrencies(allCurrencies);
+            itemsToShow = allCurrencies.slice(displayedCount, displayedCount + ITEMS_PER_LOAD);
         } else {
             const filtered = allCurrencies.filter(currency => 
                 currency.name.toLowerCase().includes(searchTerm) ||
                 currency.ticker.toLowerCase().includes(searchTerm)
             );
-            displayCurrencies(filtered);
+            itemsToShow = filtered.slice(displayedCount, displayedCount + ITEMS_PER_LOAD);
         }
-        
+
+        if (itemsToShow.length > 0) {
+            displayCurrencies(itemsToShow, true);
+            displayedCount += itemsToShow.length;
+        }
+    }
+    searchInput.addEventListener('focus', function() {
         document.getElementById('selectItems').classList.remove('hidden');
     });
 
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            const searchTerm = this.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                displayCurrencies(allCurrencies.slice(0, ITEMS_PER_LOAD));
+            } else {
+                const filtered = allCurrencies.filter(currency => 
+                    currency.name.toLowerCase().includes(searchTerm) ||
+                    currency.ticker.toLowerCase().includes(searchTerm)
+                );
+                displayCurrencies(filtered.slice(0, ITEMS_PER_LOAD));
+            }
+            
+            document.getElementById('selectItems').classList.remove('hidden');
+        }, 300);
+    });
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.custom-select')) {
             document.getElementById('selectItems').classList.add('hidden');
         }
     });
+
+    function showLoading(show) {
+        const button = document.getElementById('createInvoice');
+        if (show) {
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner"></span> Creating invoice...';
+        } else {
+            button.disabled = false;
+            button.innerHTML = 'Create Invoice'
+        }
+    }
 
     document.getElementById('createInvoice').addEventListener('click', async () => {
         const amount = document.getElementById('amount').value;
@@ -83,6 +129,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        showLoading(true);
+
         try {
             const response = await fetch(`${API_URL}/api/createInvoice`, {
                 method: 'POST',
@@ -104,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            alert(`Invoice created!\nSend ${data.amount} ZEC to:\n${data.payinAddress}`);
+            window.location.href = `/invoice/${data.id}`;
             
         } catch (error) {
             console.error('Error creating invoice:', error);

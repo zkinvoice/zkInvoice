@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZEC Invoice</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="/img/avatar.png">
 </head>
 <body>
     
@@ -15,20 +16,20 @@
 
             <div class="form-group">
                 <label>amount ZEC</label>
-                <input type="text" id="amount" placeholder="0.00">
+                <input type="text" id="amount" placeholder="0.00" autocomplete="off">
             </div>
 
             <div class="form-group">
                 <label>To Chain</label>
                 <div class="custom-select" id="customSelect">
-                    <input type="text" class="select-search" id="chainSearch" placeholder="Search chain...">
+                    <input type="text" class="select-search" id="chainSearch" placeholder="Search chain..." autocomplete="off">
                     <div class="select-items hidden" id="selectItems"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Recipient wallet</label>
-                <input type="text" id="address" placeholder="Enter wallet address">
+                <input type="text" id="address" placeholder="Enter wallet address" autocomplete="off">
             </div>
 
             <button id="createInvoice">Create Invoice</button>

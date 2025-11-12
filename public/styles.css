@@ -74,7 +74,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 700;
-    color: #555;
+    color: #f5f5f5;
     font-size: 14px;
 }
 
@@ -374,4 +374,381 @@ button:active {
 
 .select-search::placeholder {
     color: rgba(159, 149, 161, 0.5);
+}
+
+#createInvoice {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+#createInvoice:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.invoice-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.status-waiting { background: #fff3cd; color: #856404; }
+.status-confirming { background: #d1ecf1; color: #0c5460; }
+.status-exchanging { background: #d1ecf1; color: #0c5460; }
+.status-sending { background: #d1ecf1; color: #0c5460; }
+.status-finished { background: #d4edda; color: #155724; }
+.status-failed { background: #f8d7da; color: #721c24; }
+.status-refunded { background: #f8d7da; color: #721c24; }
+.status-expired { background: #f8d7da; color: #721c24; }
+
+.loading-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner-large {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.payment-info {
+    margin: 20px 0;
+}
+
+.info-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.info-section.highlight {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+}
+
+.info-section label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.info-section.highlight label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.value-large {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.value-medium {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.value-small {
+    font-size: 14px;
+    word-break: break-all;
+    margin: 5px 0;
+}
+
+.currency-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.address-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.address-container input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.copy-btn.copied {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.info-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.info-section-small {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.info-section-small label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.hash {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.refresh-btn {
+    width: 100%;
+    padding: 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: #0056b3;
+}
+
+.refresh-btn svg {
+    stroke-width: 2;
+}
+
+@media (max-width: 768px) {
+    .info-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .address-container {
+        flex-direction: column;
+    }
+    
+    .copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.info-section.highlight {
+    background: linear-gradient(135deg, #4f6082 0%, #5a6f99 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.info-section.highlight label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+}
+
+.value-large {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+.currency-badge {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.address-container input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.copy-btn {
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.spinner-large {
+    border: 4px solid rgba(159, 149, 161, 0.2);
+    border-top-color: #4f6082;
+}
+
+.error-message {
+    background: rgba(248, 215, 218, 0.9);
+    color: #721c24;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #f5c6cb;
+}
+
+.address-container input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.address-container input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+css/* Меняем layout для адреса и кнопки */
+.address-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.address-container input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    font-family: monospace;
+    font-size: 13px;
+    text-align: center;
+}
+
+.address-container input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.copy-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.copy-btn.copied {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: rgba(76, 175, 80, 0.5);
 }
