@@ -8,6 +8,32 @@
 </head>
 <body>
     
+
+    <div class="container">
+        <div class="invoice-card">
+            <h1>Create invoice form</h1>
+
+            <div class="form-group">
+                <label>amount ZEC</label>
+                <input type="number" id="amount" placeHolder="0.00">
+            </div>
+
+            <div class="form-group">
+                <select id="toChain">
+                    <option value="">Select chain</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Receipnt wallet</label>
+                <input type="text" id="address" placeholder="Enter wallet address">
+            </div>
+
+            <button id="createInvoice">CreateInvoice</button>
+
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>

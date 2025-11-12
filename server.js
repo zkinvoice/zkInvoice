@@ -156,6 +156,28 @@ app.post('/api/createInvoice', async (req, res) => {
     }
 })
 
+app.get('/api/currencies', async (req, res) => {
+    try {
+        const response = await fetch(
+        `${BASE_URL}/exchange/currencies?fromCurrency=zec&fromNetwork=zec&flow=standard`,
+        {
+            headers: { "x-changenow-api-key": API_KEY }
+        }
+        );
+        if (!response.ok) {
+            return res.status(400).json({ error: 'Failed to fetch currecies '})
+        }
+
+        const currencies = await response.json();
+        console.log(currencies)
+        res.json(currencies);
+
+    } catch (error) {
+        console.error('Error fetching currencies', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
