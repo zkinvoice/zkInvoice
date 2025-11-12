@@ -13,8 +13,15 @@ zkInvoice is a payment platform that enables developers to easily integrate cros
 
 ## API Reference
 
-### Endpoints
+## Endpoints
 
+### 1. Create Invoice
+Creates a new invoice for exchanging ZEC to another cryptocurrency.
+
+**Endpoint:** `POST /api/createInvoice`
+
+**Request Body:**
+```json
 {
   "amount": "1.5",
   "toCurrency": "eth",
@@ -128,8 +135,6 @@ GET /api/currencies
 | `finished` | Payment successfully completed |
 | `failed` | Transaction failed |
 | `expired` | Invoice expired |
-
-**Note:** When status reaches `confirming`, it is automatically set to `finished` in the database.
 
 
 ### SDK
