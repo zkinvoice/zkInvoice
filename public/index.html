@@ -15,21 +15,23 @@
 
             <div class="form-group">
                 <label>amount ZEC</label>
-                <input type="number" id="amount" placeHolder="0.00">
+                <input type="text" id="amount" placeholder="0.00">
             </div>
 
             <div class="form-group">
-                <select id="toChain">
-                    <option value="">Select chain</option>
-                </select>
+                <label>To Chain</label>
+                <div class="custom-select" id="customSelect">
+                    <input type="text" class="select-search" id="chainSearch" placeholder="Search chain...">
+                    <div class="select-items hidden" id="selectItems"></div>
+                </div>
             </div>
 
             <div class="form-group">
-                <label>Receipnt wallet</label>
+                <label>Recipient wallet</label>
                 <input type="text" id="address" placeholder="Enter wallet address">
             </div>
 
-            <button id="createInvoice">CreateInvoice</button>
+            <button id="createInvoice">Create Invoice</button>
 
         </div>
     </div>
